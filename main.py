@@ -5,7 +5,6 @@ See `README.md` for a detailed discussion of this project.
 
 This script can be invoked from the command line::
 
-
     $ python3 main.py {inspect,query,interactive} [args]
 
 The `inspect` subcommand looks up an NEO by name or by primary designation, and
