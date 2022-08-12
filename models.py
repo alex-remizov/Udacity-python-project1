@@ -47,7 +47,7 @@ class NearEarthObject:
         self.designation = str(des) if des else ''
         self.name = str(name) if name else None
         self.diameter = float(diameter) if diameter else float('nan')
-        self.hazardous = bool(hazardous) if hazardous else False
+        self.hazardous = True if str(hazardous).upper() == 'Y' else False
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
@@ -97,7 +97,7 @@ class CloseApproach:
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self.designation = str(des) if des else ''
+        self._designation = str(des) if des else ''
         self.time = cd_to_datetime(time) if time else None  # TODO: Use the cd_to_datetime function for this attribute.
         self.distance = float(distance) if distance else 0.0
         self.velocity = float(velocity) if velocity else 0.0
