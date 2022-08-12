@@ -88,7 +88,7 @@ class CloseApproach:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, distance, velocity, time):
+    def __init__(self, des, distance, velocity, time):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
@@ -97,7 +97,7 @@ class CloseApproach:
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self._designation = ''
+        self.designation = str(des) if des else ''
         self.time = cd_to_datetime(time) if time else None  # TODO: Use the cd_to_datetime function for this attribute.
         self.distance = float(distance) if distance else 0.0
         self.velocity = float(velocity) if velocity else 0.0
