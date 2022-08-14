@@ -38,6 +38,7 @@ class AttributeFilter:
     Concrete subclasses can override the `get` classmethod to provide custom
     behavior to fetch a desired attribute from the given `CloseApproach`.
     """
+
     def __init__(self, op, value):
         """Construct a new `AttributeFilter` from an binary predicate and a reference value.
 
@@ -54,7 +55,7 @@ class AttributeFilter:
 
     def __call__(self, approach):
         """Invoke `self(approach)`."""
-        return self.op(self.get(approach), self.value)
+        return self.op(self.get(approach), self.value) if self.value is not None else True
 
     @classmethod
     def get(cls, approach):
@@ -70,6 +71,36 @@ class AttributeFilter:
 
     def __repr__(self):
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
+
+
+class Filter_Diameter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.neo.diameter
+
+
+class Filter_Date(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.time.date()
+
+
+class Filter_Distance(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.distance
+
+
+class Filter_Velocity(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.velocity
+
+
+class Filter_Hazardous(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.neo.hazardous
 
 
 def create_filters(
@@ -109,7 +140,12 @@ def create_filters(
     :return: A collection of filters for use with `query`.
     """
     # TODO: Decide how you will represent your filters.
-    return ()
+
+    return [Filter_Date(operator.eq, date), Filter_Date(operator.ge, start_date), Filter_Date(operator.le, end_date),
+            Filter_Distance(operator.ge, distance_min), Filter_Distance(operator.le, distance_max),
+            Filter_Velocity(operator.ge, velocity_min), Filter_Velocity(operator.le, velocity_max),
+            Filter_Diameter(operator.ge, diameter_min), Filter_Diameter(operator.le, diameter_max),
+            Filter_Hazardous(operator.eq, hazardous)]
 
 
 def limit(iterator, n=None):
