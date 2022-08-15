@@ -30,6 +30,12 @@ def write_to_csv(results, filename):
     )
     # TODO: Write the results to a CSV file, following the specification in the instructions.
 
+    with open(filename, 'w') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for approach in results:
+            element = {**approach.serialize(), **approach.neo.serialize()}
+            writer.writerow(element)
 
 def write_to_json(results, filename):
     """Write an iterable of `CloseApproach` objects to a JSON file.
@@ -43,3 +49,16 @@ def write_to_json(results, filename):
     :param filename: A Path-like object pointing to where the data should be saved.
     """
     # TODO: Write the results to a JSON file, following the specification in the instructions.
+
+    with open(filename, 'w') as f:
+        result = []
+        for approach in results:
+            element = approach.serialize()
+            element['neo'] = approach.neo.serialize()
+            result.append(element)
+        json.dump(result, f, indent=2)
+
+
+
+
+

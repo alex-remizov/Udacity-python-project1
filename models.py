@@ -32,6 +32,7 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
+
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
     def __init__(self, des, name, diameter, hazardous):
@@ -64,13 +65,16 @@ class NearEarthObject:
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
         return f"NEO {self.fullname} has a diameter {self.diameter:.3f} of km " \
-            f"and is {'' if self.hazardous else 'not '}potentially hazardous."
-
+               f"and is {'' if self.hazardous else 'not '}potentially hazardous."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this obje ct."""
         return f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, " \
                f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
+
+    def serialize(self):
+        return {'designation': self.designation, 'name': self.name, 'diameter_km': self.diameter,
+                'potentially_hazardous': self.hazardous}
 
 
 class CloseApproach:
@@ -86,6 +90,7 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
+
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
     def __init__(self, des, distance, velocity, time):
@@ -135,3 +140,6 @@ class CloseApproach:
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, " \
                f"velocity={self.velocity:.2f}, neo={self.neo!r})"
+
+    def serialize(self):
+        return {'datetime_utc':self.time_str, 'distance_au':self.distance, 'velocity_km_s':self.velocity}
