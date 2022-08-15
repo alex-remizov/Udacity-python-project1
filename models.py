@@ -33,18 +33,15 @@ class NearEarthObject:
     `NEODatabase` constructor.
     """
 
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
     def __init__(self, des, name, diameter, hazardous):
         """Create a new `NearEarthObject`.
 
-        :param info: A dictionary of excess keyword arguments supplied to the constructor.
+        :param des: designation of asteroid or comet
+        :param name: name of asteroid or comet
+        :param diameter: diameter of asteroid or comet
+        :hazardous: if asteroid is classified as hazardous
         """
-        # TODO: Assign information from the arguments passed to the constructor
-        # onto attributes named `designation`, `name`, `diameter`, and `hazardous`.
-        # You should coerce these values to their appropriate data type and
-        # handle any edge cases, such as a empty name being represented by `None`
-        # and a missing diameter being represented by `float('nan')`.
+
         self.designation = str(des) if des else ''
         self.name = str(name) if name else None
         self.diameter = float(diameter) if diameter else float('nan')
@@ -56,23 +53,20 @@ class NearEarthObject:
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
-        # TODO: Use self.designation and self.name to build a fullname for this object.
         return self.designation if not self.name else f'{self.designation} ({self.name})'
 
     def __str__(self):
         """Return `str(self)`."""
-        # TODO: Use this object's attributes to return a human-readable string representation.
-        # The project instructions include one possibility. Peek at the __repr__
-        # method for examples of advanced string formatting.
         return f"NEO {self.fullname} has a diameter {self.diameter:.3f} of km " \
                f"and is {'' if self.hazardous else 'not '}potentially hazardous."
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable string representation of this obje ct."""
+        """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, " \
                f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
 
     def serialize(self):
+        """Return dictionary with the key fields. Used to write the file"""
         return {'designation': self.designation, 'name': self.name, 'diameter_km': self.diameter,
                 'potentially_hazardous': self.hazardous}
 
@@ -91,19 +85,16 @@ class CloseApproach:
     `NEODatabase` constructor.
     """
 
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
     def __init__(self, des, distance, velocity, time):
         """Create a new `CloseApproach`.
 
-        :param info: A dictionary of excess keyword arguments supplied to the constructor.
+        :param des: designation of asteroid or comet
+        :param time: time of close-approach
+        :param distance: nominal approach distance
+        :param velocity: relevant velocity
         """
-        # TODO: Assign information from the arguments passed to the constructor
-        # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
-        # You should coerce these values to their appropriate data type and handle any edge cases.
-        # The `cd_to_datetime` function will be useful.
         self._designation = str(des) if des else ''
-        self.time = cd_to_datetime(time) if time else None  # TODO: Use the cd_to_datetime function for this attribute.
+        self.time = cd_to_datetime(time) if time else None
         self.distance = float(distance) if distance else 0.0
         self.velocity = float(velocity) if velocity else 0.0
 
@@ -123,16 +114,10 @@ class CloseApproach:
         formatted string that can be used in human-readable representations and
         in serialization to CSV and JSON files.
         """
-        # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
-        # build a formatted representation of the approach time.
-        # TODO: Use self.designation and self.name to build a fullname for this object.
         return datetime_to_str(self.time)
 
     def __str__(self):
         """Return `str(self)`."""
-        # TODO: Use this object's attributes to return a human-readable string representation.
-        # The project instructions include one possibility. Peek at the __repr__
-        # method for examples of advanced string formatting.
         return f"On {self.time_str} {self.neo.fullname} approaches Earth at a distance of {self.distance:.2f} au " \
                f"and a velocity of {self.velocity:.2f} km/s."
 
@@ -142,4 +127,5 @@ class CloseApproach:
                f"velocity={self.velocity:.2f}, neo={self.neo!r})"
 
     def serialize(self):
-        return {'datetime_utc':self.time_str, 'distance_au':self.distance, 'velocity_km_s':self.velocity}
+        """Return dictionary with the key fields. Used to write the file"""
+        return {'datetime_utc': self.time_str, 'distance_au': self.distance, 'velocity_km_s': self.velocity}

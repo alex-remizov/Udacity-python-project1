@@ -24,7 +24,7 @@ def load_neos(neo_csv_path):
     :param neo_csv_path: A path to a CSV file containing data about near-Earth objects.
     :return: A collection of `NearEarthObject`s.
     """
-    # TODO: Load NEO data from the given CSV file.
+
     all_neos = []
     with open(neo_csv_path, 'r') as f:
         reader = csv.reader(f)
@@ -40,7 +40,7 @@ def load_approaches(cad_json_path):
     :param cad_json_path: A path to a JSON file containing data about close approaches.
     :return: A collection of `CloseApproach`es.
     """
-    # TODO: Load close approach data from the given JSON file.
+
     with open(cad_json_path, 'r') as f:
         data = json.load(f)
 

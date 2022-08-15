@@ -74,30 +74,35 @@ class AttributeFilter:
 
 
 class Filter_Diameter(AttributeFilter):
+    """Filter on diameter"""
     @classmethod
     def get(cls, approach):
         return approach.neo.diameter
 
 
 class Filter_Date(AttributeFilter):
+    """Filter on date"""
     @classmethod
     def get(cls, approach):
         return approach.time.date()
 
 
 class Filter_Distance(AttributeFilter):
+    """Filter on distance"""
     @classmethod
     def get(cls, approach):
         return approach.distance
 
 
 class Filter_Velocity(AttributeFilter):
+    """Filter on velocity"""
     @classmethod
     def get(cls, approach):
         return approach.velocity
 
 
 class Filter_Hazardous(AttributeFilter):
+    """Filter on Hazardous"""
     @classmethod
     def get(cls, approach):
         return approach.neo.hazardous
@@ -137,9 +142,8 @@ def create_filters(
     :param diameter_min: A minimum diameter of the NEO of a matching `CloseApproach`.
     :param diameter_max: A maximum diameter of the NEO of a matching `CloseApproach`.
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
-    :return: A collection of filters for use with `query`.
+    :return: A list of filters for use with `query`.
     """
-    # TODO: Decide how you will represent your filters.
 
     return [Filter_Date(operator.eq, date), Filter_Date(operator.ge, start_date), Filter_Date(operator.le, end_date),
             Filter_Distance(operator.ge, distance_min), Filter_Distance(operator.le, distance_max),
@@ -157,7 +161,7 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    # TODO: Produce at most `n` values from the given iterator.
+
     it = iter(iterator)
     i = 0
     while (n == 0 or not n) or (i < n):
