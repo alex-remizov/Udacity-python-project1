@@ -41,7 +41,6 @@ class NearEarthObject:
         :param diameter: diameter of asteroid or comet
         :hazardous: if asteroid is classified as hazardous
         """
-
         self.designation = str(des) if des else ''
         self.name = str(name) if name else None
         self.diameter = float(diameter) if diameter else float('nan')
@@ -66,7 +65,7 @@ class NearEarthObject:
                f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
 
     def serialize(self):
-        """Return dictionary with the key fields. Used to write the file"""
+        """Return dictionary with the key fields. Used to write the file."""
         return {'designation': self.designation, 'name': self.name, 'diameter_km': self.diameter,
                 'potentially_hazardous': self.hazardous}
 
@@ -127,5 +126,5 @@ class CloseApproach:
                f"velocity={self.velocity:.2f}, neo={self.neo!r})"
 
     def serialize(self):
-        """Return dictionary with the key fields. Used to write the file"""
+        """Return dictionary with the key fields. Used to write the file."""
         return {'datetime_utc': self.time_str, 'distance_au': self.distance, 'velocity_km_s': self.velocity}

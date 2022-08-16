@@ -70,41 +70,52 @@ class AttributeFilter:
         raise UnsupportedCriterionError
 
     def __repr__(self):
+        """Print key info."""
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 
 class Filter_Diameter(AttributeFilter):
-    """Filter on diameter"""
+    """Filter on diameter."""
+
     @classmethod
     def get(cls, approach):
+        """Get the required field."""
         return approach.neo.diameter
 
 
 class Filter_Date(AttributeFilter):
-    """Filter on date"""
+    """Filter on date."""
+
     @classmethod
     def get(cls, approach):
+        """Get the required field."""
         return approach.time.date()
 
 
 class Filter_Distance(AttributeFilter):
-    """Filter on distance"""
+    """Filter on distance."""
+
     @classmethod
     def get(cls, approach):
+        """Get the required field."""
         return approach.distance
 
 
 class Filter_Velocity(AttributeFilter):
-    """Filter on velocity"""
+    """Filter on velocity."""
+
     @classmethod
     def get(cls, approach):
+        """Get the required field."""
         return approach.velocity
 
 
 class Filter_Hazardous(AttributeFilter):
-    """Filter on Hazardous"""
+    """Filter on Hazardous."""
+
     @classmethod
     def get(cls, approach):
+        """Get the required field."""
         return approach.neo.hazardous
 
 
@@ -144,7 +155,6 @@ def create_filters(
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A list of filters for use with `query`.
     """
-
     return [Filter_Date(operator.eq, date), Filter_Date(operator.ge, start_date), Filter_Date(operator.le, end_date),
             Filter_Distance(operator.ge, distance_min), Filter_Distance(operator.le, distance_max),
             Filter_Velocity(operator.ge, velocity_min), Filter_Velocity(operator.le, velocity_max),
@@ -161,7 +171,6 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-
     it = iter(iterator)
     i = 0
     while (n == 0 or not n) or (i < n):
